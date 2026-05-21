@@ -1,6 +1,7 @@
 import path from "path";
 import fs from "fs";
 import esbuild from "esbuild";
+import pkg from "../package.json" with { type: 'json' };
 
 const license = fs.readFileSync("./LICENSE.md", "utf-8");
 
@@ -19,6 +20,7 @@ export const buildEsm = async (inputPath, outputPath) => {
     target: "esnext",
     define: {
       __DEV__: JSON.stringify(false),
+      REACT_ROUTER_VERSION: JSON.stringify(pkg.version),
     },
     external: ["react", "react-dom"],
     banner: {
